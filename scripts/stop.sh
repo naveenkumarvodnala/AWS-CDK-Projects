@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
-#Stop the runing conatiner
-containerid=`docker ps | awk -F " " '{print $1}'`
-docker rm -f $containerid
+# Get running container IDs (skipping the header automatically)
+CONTAINER_IDS=$(docker ps -q)
+
+# Only attempt to stop/remove if container IDs exist
+echo "Stopping container(s): $CONTAINER_IDS"
+docker rm -f $CONTAINER_IDS
