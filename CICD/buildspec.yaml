@@ -11,14 +11,28 @@ phases:
     runtime-versions:
       nodejs: 20
     commands:
-      - echo "Installing dependencies"
+      - echo "===== Current Working Directory ====="
+      - pwd
+      - echo "===== Listing Files ====="
+      - ls -la
+      - echo "===== Directory Tree ====="
+      - find . -maxdepth 2
+      - echo "===== package.json ====="
+      - cat package.json || echo "package.json not found"
+      - echo "===== Installing Dependencies ====="
       - npm install
+
   build:
     commands:
-      - echo "Building Docker image"
+      - echo "===== Docker Version ====="
+      - docker --version
+      - echo "===== Logging into Docker Hub ====="
       - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin "$DOCKER_REGISTRY_URL"
+      - echo "===== Building Docker Image ====="
       - docker build -t "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/simple-app:latest" .
+      - echo "===== Pushing Docker Image ====="
       - docker push "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/simple-app:latest"
+
   post_build:
     commands:
-      - echo "build stage is excuted successfully"
+      - echo "Build completed successfully"
