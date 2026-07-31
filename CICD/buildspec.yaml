@@ -23,3 +23,7 @@ phases:
   post_build:
     commands:
       - echo "build stage is excuted successfully"
+
+artifacts:
+  files:
+    - '**/*'
