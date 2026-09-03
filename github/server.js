@@ -4,8 +4,8 @@ const app = express();
 
 app.get("/", (req,res) => {
     res.json({
-        message: "Hello from Nodejs Devops",
-        environment : process.env.NODE_DEV || "development"
+        message: "Version 2 - Automatically deployed!",
+        environment: process.env.NODE_ENV || "development"
     });
 });
 
